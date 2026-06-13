@@ -1,0 +1,20 @@
+============================================
+   RESULTADOS - PRUEBAS DE VALIDACION FINAL
+   Proyecto: CAG Lab - Modulo 3
+============================================
+
+PRUEBAS BASE (API Core):
+  test_health_returns_ok .................... OK
+  test_ask_answers_from_knowledge_base ..... OK
+  test_ask_requires_user_and_question ...... OK
+  --------------------------------------------------
+  Ran 3 tests .............................. OK
+
+PRUEBAS VALIDACION CAG:
+  test_saves_context_for_user .............. OK
+  test_retrieves_context_for_user .......... OK
+  test_ask_uses_context_to_influence_response OK
+  --------------------------------------------------
+  Ran 3 tests .............................. OK
+
+TOTAL: 6/6 TESTS PASARON EXITOSAMENTE
