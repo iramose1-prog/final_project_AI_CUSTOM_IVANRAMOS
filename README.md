@@ -48,35 +48,113 @@ Abra `frontend/index.html` en un navegador. También puede servir la carpeta con
 
 En el proyecto base, la validación final está destinada a fallar. Debe utilizarse como autoevaluación cuando el trabajo solicitado en el enunciado esté completo.
 
-Sprint 1 — ContextStore (3 días)
-Objetivo: Implementar la capa de persistencia de contexto.
+# Planificación Scrum
 
-Tarea	Archivo	Criterio de Aceptación
-Implementar save(user_id, key, value) en memoria	context_store.py:9-15	POST /api/context → 201 {"saved": true}
-Implementar list_for_user(user_id)	context_store.py:17-19	GET /api/context?user_id=X → 200 con lista de items
-Probar manualmente con curl o el frontend	—	Items persisten entre requests
-Definition of Done: test_saves_context_for_user y test_retrieves_context_for_user pasan.
+## Sprint 1 – Implementación del Context Store
 
-Sprint 2 — Lógica CAG (3 días)
-Objetivo: Implementar la adaptación de respuestas según contexto.
+**Objetivo:** Implementar la persistencia de contexto para que el sistema pueda almacenar información asociada a cada usuario.
 
-Tarea	Archivo	Criterio de Aceptación
-Implementar apply_context() que modifique el answer según contexto	cag.py:5-6	La respuesta incluye palabras clave del contexto
-Integrar apply_context en assistant.py::answer_question()	assistant.py:10-16	context_used se llena con las claves de contexto usadas
-Conectar cag.py con context_store.py	ambos	apply_context recibe contexto real, no placeholder
-Definition of Done: test_ask_uses_context_to_influence_later_response pasa.
+### Actividades
 
-Sprint 3 — Integración y Validación (2 días)
-Objetivo: Pasar la suite completa de validación.
+* Analizar el funcionamiento actual del endpoint `/api/context`.
+* Implementar `save(user_id, key, value)` en `context_store.py`.
+* Implementar `list_for_user(user_id)` en `context_store.py`.
+* Realizar pruebas manuales mediante API y frontend.
 
-Tarea	Criterio
-Ejecutar test.sh y verificar 3/3 tests verdes	Ran 3 tests in ... OK
-Probar casos borde: usuario sin contexto, contexto vacío	Sin errores
-Verificar que pruebas base sigan pasando	test_base_api.py → OK
-Definition of Done: ./test.sh reporta 0 fallos.
+### Criterios de aceptación
 
-Sprint 4 — Demo y Evidencias (2 días)
-Objetivo: Documentar y presentar resultados.
+* POST `/api/context` retorna `201 {"saved": true}`.
+* GET `/api/context?user_id=X` retorna los elementos almacenados.
+* Los datos persisten entre solicitudes.
+
+### Resultado esperado
+
+Las pruebas `test_saves_context_for_user` y `test_retrieves_context_for_user` deben ejecutarse exitosamente.
+
+### Observación personal
+
+Este sprint es fundamental porque constituye la base del CAG. Sin almacenamiento de contexto no es posible recuperar información en consultas futuras.
+
+---
+
+## Sprint 2 – Implementación de la lógica CAG
+
+**Objetivo:** Incorporar el contexto almacenado en la generación de respuestas.
+
+### Actividades
+
+* Implementar `apply_context()` en `cag.py`.
+* Integrar la lógica CAG en `assistant.py`.
+* Conectar el módulo CAG con `context_store.py`.
+
+### Criterios de aceptación
+
+* Las respuestas reflejan información previamente almacenada.
+* `context_used` contiene las claves de contexto utilizadas.
+* El contexto recuperado proviene del almacenamiento real.
+
+### Resultado esperado
+
+La prueba `test_ask_uses_context_to_influence_later_response` debe aprobarse.
+
+### Observación personal
+
+La diferencia principal entre RAG y CAG es que el sistema comienza a utilizar información específica del usuario, mejorando la personalización de las respuestas.
+
+---
+
+## Sprint 3 – Integración y Validación
+
+**Objetivo:** Verificar que la integración funcione correctamente sin afectar el comportamiento existente.
+
+### Actividades
+
+* Ejecutar pruebas de validación.
+* Verificar casos sin contexto.
+* Verificar casos con contexto vacío.
+* Ejecutar nuevamente las pruebas base.
+
+### Criterios de aceptación
+
+* Todas las pruebas de validación deben aprobarse.
+* No deben existir regresiones en las funcionalidades originales.
+
+### Resultado esperado
+
+La suite de pruebas debe finalizar sin errores ni fallos.
+
+### Observación personal
+
+Esta fase permite comprobar que el nuevo módulo se integra correctamente con la arquitectura existente y mantiene la estabilidad del sistema.
+
+---
+
+## Sprint 4 – Evidencias y Entrega
+
+**Objetivo:** Preparar la documentación y evidencias requeridas para la evaluación final.
+
+### Actividades
+
+* Capturar evidencias del funcionamiento.
+* Documentar la arquitectura implementada.
+* Completar README.md.
+* Completar PROMPTS.md.
+* Crear Pull Request y realizar merge.
+
+### Criterios de aceptación
+
+* Evidencias disponibles en `docs/evidencias/`.
+* Documentación actualizada.
+* Pull Request creado y fusionado.
+
+### Resultado esperado
+
+Repositorio listo para entrega con evidencia verificable de todo el proceso.
+
+### Observación personal
+
+La documentación y las evidencias permiten demostrar no solo el resultado final, sino también el proceso seguido para llegar a la solución.
+
 
 Tarea	Archivo
 Capturar pantallas del frontend funcionando	docs/evidencias/
